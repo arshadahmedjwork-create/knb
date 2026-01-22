@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
 const Header = () => {
@@ -76,13 +77,9 @@ const Header = () => {
         </nav>
 
         {/* CTA Button */}
-        <motion.a
-          href="/book-consultation"
-          className="hidden md:flex items-center gap-2 border border-brass px-5 py-2.5 text-offwhite text-sm uppercase tracking-wide-editorial hover:bg-brass hover:text-onyx transition-all duration-500 group rounded-full"
-          animate={{
-            scale: isCollapsed ? 0.95 : 1,
-          }}
-          transition={{ duration: 0.4 }}
+        <Link
+          to="/book-consultation"
+          className={`hidden md:flex items-center gap-2 border border-brass px-5 py-2.5 text-offwhite text-sm uppercase tracking-wide-editorial hover:bg-brass hover:text-onyx transition-all duration-500 group rounded-full ${isCollapsed ? 'scale-95' : 'scale-100'}`}
         >
           <span>Book Consultation</span>
           <motion.svg
@@ -100,7 +97,7 @@ const Header = () => {
               strokeLinejoin="round"
             />
           </motion.svg>
-        </motion.a>
+        </Link>
 
         {/* Mobile Menu Button */}
         <button
@@ -156,16 +153,20 @@ const Header = () => {
               {item.label}
             </motion.a>
           ))}
-          <motion.a
-            href="/book-consultation"
+          <Link
+            to="/book-consultation"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-4 border border-brass px-5 py-3 text-offwhite text-sm uppercase tracking-wide-editorial text-center hover:bg-brass hover:text-onyx transition-all duration-500 rounded-full"
-            initial={{ opacity: 0, y: 10 }}
-            animate={isMobileMenuOpen ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            className="block mt-4 border border-brass px-5 py-3 text-offwhite text-sm uppercase tracking-wide-editorial text-center hover:bg-brass hover:text-onyx transition-all duration-500 rounded-full"
+          // @ts-ignore - motion props handling on custom component
           >
-            Book Consultation
-          </motion.a>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={isMobileMenuOpen ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              Book Consultation
+            </motion.div>
+          </Link>
         </nav>
       </motion.div>
 

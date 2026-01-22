@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   const ref = useRef(null);
@@ -77,8 +78,8 @@ const CTA = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <a
-              href="/book-consultation"
+            <Link
+              to="/book-consultation"
               className="group inline-flex items-center justify-center gap-3 border border-brass px-10 py-4 text-offwhite uppercase tracking-wide-editorial text-sm hover:bg-brass hover:text-onyx transition-all duration-500 rounded-full"
             >
               <span>Book Consultation</span>
@@ -97,7 +98,7 @@ const CTA = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </a>
+            </Link>
             <a
               href="tel:+442071234567"
               className="group inline-flex items-center justify-center gap-3 border border-stone/30 px-10 py-4 text-offwhite/70 uppercase tracking-wide-editorial text-sm hover:border-offwhite/50 hover:text-offwhite transition-all duration-500 rounded-full"
