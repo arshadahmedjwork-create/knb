@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .highlight {
+            color: #d4af37;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Consultation Request Received</h1>
+        </div>
+        <div class="value"> <a href="mailto:{{to_email}}" class="button">Reply to Client</a>
+        </div>
+        <div class="content">
+            <p>Dear {{first_name}} {{last_name}},</p>
+
+            <p>Thank you for reaching out to <strong>KNB Innovations</strong>. We have successfully received your
+                consultation request.</p>
+
+            <p>Our team is reviewing your project details regarding your <span class="highlight">{{project_type}}</span>
+                project.</p>
+
+            <p><strong>Your Project Brief:</strong><br />
+                <em style="color: #666;">"{{message}}"</em>
+            </p>
+
+            <p>We will review the specific requirements and be in touch shortly to schedule a time to discuss your
+                vision.</p>
+
+            <p>Best Regards,<br />
+                The KNB Innovations Team</p>
+        </div>
+        <div class="footer">
+            &copy; {{current_year}} KNB Innovations. All rights reserved.<br />
+            42 Design Quarter, Architecture Lane, London
+        </div>
+    </div>
+</body>
+
+</html>

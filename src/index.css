@@ -1,0 +1,337 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* KNB Innovations Design System
+   An architectural, editorial design language 
+   emphasizing quiet authority and material honesty */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Primary Brand Colors */
+    --onyx: 220 18% 6%;
+    --offwhite: 40 33% 94%;
+    --graphite: 220 10% 40%;
+    --stone: 30 8% 70%;
+    --brass: 38 45% 52%;
+    
+    /* Semantic Tokens - Light Mode (Off-White surfaces) */
+    --background: 40 33% 94%;
+    --foreground: 220 18% 6%;
+
+    --card: 40 33% 96%;
+    --card-foreground: 220 18% 6%;
+
+    --popover: 40 33% 96%;
+    --popover-foreground: 220 18% 6%;
+
+    --primary: 220 18% 6%;
+    --primary-foreground: 40 33% 94%;
+
+    --secondary: 30 8% 85%;
+    --secondary-foreground: 220 18% 6%;
+
+    --muted: 30 8% 85%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 38 45% 52%;
+    --accent-foreground: 220 18% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 94%;
+
+    --border: 30 8% 80%;
+    --input: 30 8% 85%;
+    --ring: 38 45% 52%;
+
+    --radius: 0px;
+
+    /* Component-specific tokens */
+    --header-bg: 220 18% 6% / 0.95;
+    --hero-bg: 220 18% 6%;
+    --section-light: 40 33% 94%;
+    --section-dark: 220 18% 6%;
+    
+    /* Typography Scale */
+    --font-display: 'Didot', 'Bodoni MT', 'Georgia', serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    
+    /* Spacing Scale (8pt grid) */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 40px;
+    --space-6: 48px;
+    --space-7: 56px;
+    --space-8: 64px;
+    
+    /* Container */
+    --container-max: 1280px;
+    --container-padding: 48px;
+  }
+
+  .dark {
+    --background: 220 18% 6%;
+    --foreground: 40 33% 94%;
+
+    --card: 220 18% 8%;
+    --card-foreground: 40 33% 94%;
+
+    --popover: 220 18% 8%;
+    --popover-foreground: 40 33% 94%;
+
+    --primary: 40 33% 94%;
+    --primary-foreground: 220 18% 6%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 40 33% 94%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 38 45% 52%;
+    --accent-foreground: 40 33% 94%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 40 33% 94%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 38 45% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  /* Display Typography - Editorial Serif */
+  .font-display {
+    font-family: var(--font-display);
+  }
+  
+  h1, .h1 {
+    font-family: var(--font-display);
+    @apply text-4xl md:text-5xl lg:text-6xl font-normal uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+  }
+  
+  h2, .h2 {
+    font-family: var(--font-display);
+    @apply text-2xl md:text-3xl lg:text-4xl font-normal;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+  
+  h3, .h3 {
+    font-family: var(--font-body);
+    @apply text-lg md:text-xl font-medium uppercase;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Body Typography */
+  p {
+    @apply text-base md:text-lg leading-relaxed;
+    font-family: var(--font-body);
+  }
+  
+  /* Caption/Label Typography */
+  .caption {
+    @apply text-xs md:text-sm font-medium uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container-arch {
+    @apply mx-auto w-full;
+    max-width: var(--container-max);
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .container-arch {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-arch {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+  }
+
+  /* Section Spacing */
+  .section-padding-light {
+    @apply py-20 md:py-28 lg:py-36;
+  }
+  
+  .section-padding-dark {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .section-padding-cta {
+    @apply py-16 md:py-20;
+  }
+
+  /* Brass Accent Line - the signature micro-accent */
+  .brass-line {
+    @apply h-px bg-accent;
+    max-width: 120px;
+  }
+  
+  .brass-line-vertical {
+    @apply w-px bg-accent;
+    min-height: 40px;
+  }
+
+  /* Off-White Content Panel */
+  .content-panel {
+    @apply bg-offwhite p-8 md:p-12 lg:p-16;
+  }
+
+  /* Editorial Link with underline animation */
+  .link-editorial {
+    @apply relative inline-block;
+  }
+  
+  .link-editorial::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-current;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .link-editorial:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Chevron indicator */
+  .chevron-right {
+    @apply inline-block;
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+  
+  .chevron-right::before,
+  .chevron-right::after {
+    content: '';
+    @apply absolute bg-accent;
+    width: 12px;
+    height: 1px;
+    right: 4px;
+    transform-origin: right center;
+  }
+  
+  .chevron-right::before {
+    top: 50%;
+    transform: rotate(45deg);
+  }
+  
+  .chevron-right::after {
+    top: 50%;
+    transform: rotate(-45deg);
+  }
+}
+
+@layer utilities {
+  /* Background utilities */
+  .bg-onyx {
+    background-color: hsl(var(--onyx));
+  }
+  
+  .bg-offwhite {
+    background-color: hsl(var(--offwhite));
+  }
+  
+  .text-onyx {
+    color: hsl(var(--onyx));
+  }
+  
+  .text-offwhite {
+    color: hsl(var(--offwhite));
+  }
+  
+  .text-graphite {
+    color: hsl(var(--graphite));
+  }
+  
+  .text-stone {
+    color: hsl(var(--stone));
+  }
+  
+  .text-brass {
+    color: hsl(var(--brass));
+  }
+  
+  .border-stone {
+    border-color: hsl(var(--stone));
+  }
+  
+  .border-brass {
+    border-color: hsl(var(--brass));
+  }
+
+  /* K-Monogram Lattice Pattern - very subtle background */
+  .pattern-lattice {
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 20L80 50M60 20L40 50M30 50H90' stroke='%23F5F2EA' stroke-width='1' fill='none' opacity='0.06'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+  }
+
+  /* Fade animations */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Stagger delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+}
