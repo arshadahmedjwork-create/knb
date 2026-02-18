@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState } from "react";
-import heroImage from "@/assets/hero-interior.jpg";
+import heroImage from "@/assets/hero-header-3.jpg";
 
 interface HeroProps {
   onScrollProgress?: (progress: number) => void;

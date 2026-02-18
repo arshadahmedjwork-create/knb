@@ -1,47 +1,76 @@
 import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import SectionLabel from "./SectionLabel";
 import ImageReveal from "./ImageReveal";
+import { X } from "lucide-react";
 
-import projectOffice from "@/assets/project-office.jpg";
-import projectResidential from "@/assets/project-residential.jpg";
-import projectHospitality from "@/assets/project-hospitality.jpg";
-import projectRetail from "@/assets/project-retail.jpg";
+import projectRes1 from "@/assets/project-res-1.jpg";
+import projectRes2 from "@/assets/project-res-2.jpg";
+import projectRes3 from "@/assets/project-res-3.jpg";
+import projectRes4 from "@/assets/project-res-4.jpg";
 
-const categories = ["All", "Residential", "Office", "Hospitality", "Retail"];
+const categories = ["All", "Residential"];
 
 const projects = [
   {
     id: 1,
-    title: "The Kensington Residence",
+    title: "Residential Project",
     category: "Residential",
-    image: projectResidential,
-    location: "London",
+    image: projectRes1,
+    location: "India",
   },
   {
     id: 2,
-    title: "Meridian Executive Suite",
-    category: "Office",
-    image: projectOffice,
-    location: "Dubai",
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes2,
+    location: "India",
   },
   {
     id: 3,
-    title: "The Carlisle Hotel",
-    category: "Hospitality",
-    image: projectHospitality,
-    location: "Singapore",
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes3,
+    location: "India",
   },
   {
     id: 4,
-    title: "Atelier Maison",
-    category: "Retail",
-    image: projectRetail,
-    location: "Paris",
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes4,
+    location: "India",
+  },
+  {
+    id: 5,
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes1,
+    location: "India",
+  },
+  {
+    id: 6,
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes2,
+    location: "India",
+  },
+  {
+    id: 7,
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes3,
+    location: "India",
+  },
+  {
+    id: 8,
+    title: "Residential Project",
+    category: "Residential",
+    image: projectRes4,
+    location: "India",
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+const ProjectCard = ({ project, index, onClick }: { project: typeof projects[0]; index: number; onClick: () => void }) => {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
 
@@ -64,17 +93,20 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
         ease: [0.25, 0.1, 0.25, 1]
       }}
       className="group cursor-pointer"
+      onClick={onClick}
+      layoutId={`project-card-${project.id}-${index}`} // Unique layoutId for list items
     >
       {/* Image with reveal mask */}
-      <ImageReveal className="aspect-[4/3] mb-5" delay={index * 0.1}>
+      <ImageReveal className="aspect-[4/3]" delay={index * 0.1}>
         <motion.div
           className="w-full h-full"
           style={{ y: imageY }}
         >
-          <img
+          <motion.img
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
+            layoutId={`project-image-${project.id}-${index}`} // Unique layoutId for images
           />
         </motion.div>
 
@@ -85,58 +117,24 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 
         {/* Hover content */}
         <motion.div
-          className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         >
-          <span className="caption text-offwhite bg-onyx/80 px-3 py-1.5 backdrop-blur-sm">
-            View Project
+          <span className="caption text-offwhite bg-onyx/80 px-4 py-2 backdrop-blur-sm tracking-widest text-xs">
+            VIEW
           </span>
         </motion.div>
 
         {/* Border on hover */}
         <div className="absolute inset-0 border border-transparent group-hover:border-brass/20 transition-colors duration-500 pointer-events-none" />
       </ImageReveal>
-
-      {/* Content */}
-      <motion.div
-        className="flex items-start justify-between gap-4"
-        initial={{ opacity: 0, y: 10 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: index * 0.15 + 0.3 }}
-      >
-        <div>
-          <h3 className="text-onyx text-lg md:text-xl font-semibold mb-1 tracking-label group-hover:text-brass transition-colors duration-500">
-            {project.title}
-          </h3>
-          <p className="text-graphite text-sm">{project.location}</p>
-        </div>
-
-        {/* Chevron indicator */}
-        <motion.div
-          className="mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="text-brass"
-          >
-            <path
-              d="M6 4L10 8L6 12"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
-      </motion.div>
     </motion.article>
   );
 };
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [selectedProject, setSelectedProject] = useState<{ project: typeof projects[0], layoutId: string } | null>(null);
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
@@ -152,6 +150,12 @@ const Gallery = () => {
   const filteredProjects = activeCategory === "All"
     ? projects
     : projects.filter(p => p.category === activeCategory);
+
+  const visibleProjects = filteredProjects.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 4);
+  };
 
   return (
     <section id="gallery" className="bg-offwhite section-padding-light relative overflow-hidden" ref={sectionRef}>
@@ -174,8 +178,6 @@ const Gallery = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12 md:mb-16"
         >
           <div>
-
-
             <motion.h2
               className="text-onyx font-bold"
               initial={{ opacity: 0, y: 20, letterSpacing: "0.08em" }}
@@ -216,44 +218,59 @@ const Gallery = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
           layout
         >
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {visibleProjects.map((project, index) => (
+            <ProjectCard
+              key={`${project.id}-${visibleCount}-${index}`}
+              project={project}
+              index={index}
+              onClick={() => setSelectedProject({ project, layoutId: `project-image-${project.id}-${index}` })}
+            />
           ))}
         </motion.div>
 
-        {/* View All Link with chevron */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 md:mt-16 text-center"
-        >
-          <a
-            href="#"
-            className="group inline-flex items-center gap-3 text-onyx uppercase tracking-wide-editorial text-sm"
+        {/* Load More Button */}
+        {visibleCount < filteredProjects.length && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-12 md:mt-16 text-center"
           >
-            <span className="relative">
-              View All Projects
-              <span className="absolute bottom-0 left-0 w-full h-px bg-brass transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </span>
-            <motion.svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              className="text-brass transition-transform duration-300 group-hover:translate-x-1"
+            <button
+              onClick={handleLoadMore}
+              className="group inline-flex items-center gap-3 text-onyx uppercase tracking-wide-editorial text-sm"
             >
-              <path
-                d="M6 4L10 8L6 12"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </motion.svg>
-          </a>
-        </motion.div>
+              <span className="relative">
+                View Projects
+                <span className="absolute bottom-0 left-0 w-full h-px bg-brass transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </span>
+              <motion.svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                className="text-brass transition-transform duration-300 group-hover:translate-y-1"
+              >
+                <path
+                  d="M8 6L12 10L8 14"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="rotate(90 10 10)"
+                />
+                <path
+                  d="M6 4L10 8L6 12"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </motion.svg>
+            </button>
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Bottom divider */}
@@ -264,6 +281,37 @@ const Gallery = () => {
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
       />
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-onyx/95 backdrop-blur-sm p-4 md:p-10"
+            onClick={() => setSelectedProject(null)}
+          >
+            <button
+              className="absolute top-4 right-4 text-offwhite/50 hover:text-offwhite transition-colors bg-white/10 p-2 rounded-full"
+              onClick={() => setSelectedProject(null)}
+            >
+              <X size={24} />
+            </button>
+            <motion.div
+              className="relative w-full h-full max-w-5xl max-h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+              layoutId={selectedProject.layoutId}
+            >
+              <img
+                src={selectedProject.project.image}
+                alt={selectedProject.project.title}
+                className="w-full h-full object-contain rounded-sm shadow-2xl"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
