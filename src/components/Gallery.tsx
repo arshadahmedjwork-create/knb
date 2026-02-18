@@ -253,15 +253,7 @@ const Gallery = () => {
                 className="text-brass transition-transform duration-300 group-hover:translate-y-1"
               >
                 <path
-                  d="M8 6L12 10L8 14"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  transform="rotate(90 10 10)"
-                />
-                <path
-                  d="M6 4L10 8L6 12"
+                  d="M4 6L8 10L12 6"
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
