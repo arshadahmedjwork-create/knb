@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Logo from "./Logo";
+import { ShieldCheck, Box, Users } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,6 +10,51 @@ const Footer = () => {
 
   return (
     <footer className="bg-onyx border-t border-stone/10" ref={ref}>
+      {/* Feature Section */}
+      <div className="border-b border-stone/10">
+        <div className="container-arch py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {[
+              {
+                icon: <ShieldCheck className="w-8 h-8 text-brass" />,
+                title: "Flawless 10 years warranty",
+                description: "Interiors crafted with premium materials, ensuring flawless quality without compromise."
+              },
+              {
+                icon: <Box className="w-8 h-8 text-brass" />,
+                title: "39-day delivery",
+                description: "Get beautiful interiors for your new home in just 39 days. That's our delivery guarantee."
+              },
+              {
+                icon: <Users className="w-8 h-8 text-brass" />,
+                title: "Post-installation service",
+                description: "Complete your design journey and get unwavering support from our dedicated care team."
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="flex items-start gap-5 group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="flex-shrink-0 p-3 bg-stone/5 rounded-lg border border-stone/10 group-hover:bg-stone/10 transition-colors duration-300">
+                  {feature.icon}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-offwhite font-body text-base font-medium tracking-wide">
+                    {feature.title}
+                  </h3>
+                  <p className="text-offwhite/50 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Main Footer */}
       <div className="container-arch py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">

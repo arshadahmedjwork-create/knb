@@ -4,8 +4,8 @@ import { TypewriterEffect } from "./ui/typewriter-effect";
 
 const metrics = [
   { value: "98%", label: "Timeline Certainty Index", description: "Projects delivered on schedule" },
-  { value: "127", label: "Completed Projects", description: "Across four sectors" },
-  { value: "12+", label: "Years Experience", description: "Material-first approach" },
+  { value: "220+", label: "Completed Projects", description: "Across four sectors" },
+  { value: "5+", label: "Years Experience", description: "Material-first approach" },
   { value: "100%", label: "Budget Confidence", description: "Controlled costs, no surprises" },
 ];
 
