@@ -120,7 +120,18 @@ const Consultation = () => {
               {[
                 {
                   title: "Studio Address",
-                  content: "112 Thyagaraya Road,18/19 Vairam Complex,\n Ground floor, Pondy Bazzar,\nT.Nagar, Chennai, Tamil Nadu, 600017"
+                  content: (
+                    <a
+                      href="https://www.google.com/maps/search/112+Thyagaraya+Road+18%2F19+Vairam+Complex+Ground+floor+Pondy+Bazzar+T.Nagar+Chennai+Tamil+Nadu+600017"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-brass transition-colors duration-300"
+                    >
+                      112 Thyagaraya Road, 18/19 Vairam Complex,{"\n"}
+                      Ground floor, Pondy Bazzar,{"\n"}
+                      T.Nagar, Chennai, Tamil Nadu, 600017
+                    </a>
+                  )
                 },
                 {
                   title: "Opening Hours",
@@ -128,7 +139,23 @@ const Consultation = () => {
                 },
                 {
                   title: "Contact",
-                  content: "studio@knbinnovations.com\n+91 9500107162"
+                  content: (
+                    <>
+                      <a
+                        href="mailto:studio@knbinnovations.com"
+                        className="underline hover:text-brass transition-colors duration-300"
+                      >
+                        studio@knbinnovations.com
+                      </a>
+                      {"\n"}
+                      <a
+                        href="tel:+919500107162"
+                        className="underline hover:text-brass transition-colors duration-300"
+                      >
+                        +91 9500107162
+                      </a>
+                    </>
+                  )
                 },
               ].map((item, index) => (
                 <motion.div
@@ -141,9 +168,9 @@ const Consultation = () => {
                   <h4 className="caption text-onyx mb-2 group-hover:text-brass transition-colors duration-300">
                     {item.title}
                   </h4>
-                  <p className="text-graphite whitespace-pre-line">
+                  <div className="text-graphite whitespace-pre-line">
                     {item.content}
-                  </p>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
