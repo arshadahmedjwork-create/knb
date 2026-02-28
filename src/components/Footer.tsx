@@ -119,9 +119,16 @@ const Footer = () => {
             <h4 className="caption text-offwhite mb-6">Contact</h4>
             <div className="space-y-4 text-offwhite/60 text-sm">
               <p>
-                112 Thyagaraya Road,<br />
-                18/19 Vairam Complex, Ground floor, Pondy Bazzar,<br />
-                T.Nagar, Chennai, Tamil Nadu, 600017
+                <a
+                  href="https://www.google.com/maps/search/112+Thyagaraya+Road+18%2F19+Vairam+Complex+Ground+floor+Pondy+Bazzar+T.Nagar+Chennai+Tamil+Nadu+600017"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-offwhite transition-colors duration-300"
+                >
+                  112 Thyagaraya Road,<br />
+                  18/19 Vairam Complex, Ground floor, Pondy Bazzar,<br />
+                  T.Nagar, Chennai, Tamil Nadu, 600017
+                </a>
               </p>
               <h4 className="font-display font-medium mb-2 text-offwhite mt-4">TIMINGS</h4>
               <p>Monday to Sunday | 10AM to 7PM</p>
