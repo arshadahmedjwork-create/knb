@@ -31,16 +31,49 @@ const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
 
 app.post('/api/submit', async (req, res) => {
     try {
-        const { firstName, lastName, email, projectType, projectBrief } = req.body;
+        const {
+            firstName,
+            lastName,
+            email,
+            phone,
+            consultationMode,
+            projectType,
+            location,
+            area,
+            floorplan,
+            projectStage,
+            budget,
+            requirements,
+            material,
+            timeline,
+            projectBrief
+        } = req.body;
         const date = new Date().toISOString();
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: SPREADSHEET_ID,
-            range: 'Sheet1!A:F', // Adjust Sheet name if necessary
+            range: 'Sheet1!A:P', // Adjust Sheet name if necessary
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [
-                    [date, firstName, lastName, email, projectType, projectBrief]
+                    [
+                        date,
+                        firstName,
+                        lastName,
+                        email,
+                        phone || '',
+                        projectType || '',
+                        location || '',
+                        area || '',
+                        floorplan || '',
+                        projectStage || '',
+                        budget || '',
+                        requirements || '',
+                        material || '',
+                        timeline || '',
+                        consultationMode || '',
+                        projectBrief || ''
+                    ]
                 ],
             },
         });

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,9 +7,6 @@
 /* KNB Innovations Design System
    An architectural, editorial design language 
    emphasizing quiet authority and material honesty */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
 @layer base {
   :root {
     /* Primary Brand Colors */

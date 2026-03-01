@@ -2,46 +2,64 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { TiltCard } from "./ui/tilt-card";
 
+// Import images
+import modularKitchenImg from "../assets/modular_kitchen.JPG";
+import wardrobesImg from "../assets/wadrobes.JPG";
+import tvUnitImg from "../assets/tv_unit.JPG";
+import studyImg from "../assets/study.jpg";
+import ceilingImg from "../assets/fall_seeling.jpg";
+import wallPaintImg from "../assets/wall_paint.JPG";
+import bathroomImg from "../assets/bathroom.png";
+import furnitureImg from "../assets/furniture.JPG";
+
 const services = [
   {
     icon: "kitchen",
     title: "Modular Kitchen",
     description: "Custom-built modular kitchens",
+    bgImage: modularKitchenImg,
   },
   {
     icon: "wardrobe",
     title: "Wardrobes",
     description: "Space-saving wardrobes",
+    bgImage: wardrobesImg,
   },
   {
     icon: "tv",
     title: "TV Units",
     description: "Entertainment centers",
+    bgImage: tvUnitImg,
   },
   {
     icon: "study",
     title: "Study Tables",
     description: "Ergonomic workspaces",
+    bgImage: studyImg,
   },
   {
     icon: "ceiling",
     title: "False Ceiling",
     description: "Decorative ceilings",
+    bgImage: ceilingImg,
   },
   {
     icon: "paint",
     title: "Wall Paint",
     description: "Premium finishes",
+    bgImage: wallPaintImg,
   },
   {
     icon: "bathroom",
     title: "Bathroom",
     description: "Modern bath spaces",
+    bgImage: bathroomImg,
   },
   {
     icon: "furniture",
     title: "Furniture",
     description: "Custom furniture",
+    bgImage: furnitureImg,
   },
 ];
 
@@ -126,39 +144,51 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         delay: 0.1 * (index + 1),
         ease: [0.25, 0.1, 0.25, 1]
       }}
+      className="h-full"
     >
-      <TiltCard className="group p-6 md:p-8 border border-stone/15 hover:border-stone/30 transition-colors duration-500 bg-offwhite relative overflow-hidden">
-        {/* Silver shimmer gradient overlay */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-transparent via-stone/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background: 'linear-gradient(135deg, transparent 0%, rgba(192, 192, 192, 0.1) 50%, transparent 100%)'
-          }}
-        />
+      <TiltCard className={`group border border-stone/15 hover:border-stone/30 transition-all duration-500 relative overflow-hidden h-64 md:h-80 w-full ${!service.bgImage ? 'bg-offwhite' : ''}`}>
+        {/* Background Image */}
+        {service.bgImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+            style={{ backgroundImage: `url(${service.bgImage})` }}
+          />
+        )}
 
-        {/* Subtle hover background */}
-        <motion.div
-          className="absolute inset-0 bg-stone/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        />
+        {/* Gradient Overlay for text readability based on image presence */}
+        {service.bgImage ? (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500" />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-stone/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        )}
 
-        <div className="relative z-10">
+        {/* Subtle hover background for text visibility without images */}
+        {!service.bgImage && (
           <motion.div
-            className="text-graphite mb-6 group-hover:text-brass transition-colors duration-500"
+            className="absolute inset-0 bg-stone/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          />
+        )}
+
+        <div className={`relative z-10 p-6 md:p-8 flex flex-col justify-end h-full ${service.bgImage ? 'text-white' : 'text-graphite'}`}>
+          <div className="flex-grow"></div>
+
+          <motion.div
+            className={`mb-4 transition-colors duration-500 ${service.bgImage ? 'text-white/80 group-hover:text-brass' : 'text-graphite mb-6 group-hover:text-brass'}`}
           >
             {iconMap[service.icon]}
           </motion.div>
 
-          <h3 className="text-onyx text-lg font-semibold mb-3 tracking-label group-hover:text-onyx transition-colors duration-300">
+          <h3 className={`text-lg font-semibold mb-2 tracking-label transition-colors duration-300 ${service.bgImage ? 'text-white group-hover:text-white' : 'text-onyx mb-3 group-hover:text-onyx'}`}>
             {service.title}
           </h3>
 
-          <p className="text-graphite text-sm leading-relaxed">
+          <p className={`text-sm leading-relaxed transform ${service.bgImage ? 'translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100' : ''} transition-all duration-500 ${service.bgImage ? 'text-white/80' : 'text-graphite'}`}>
             {service.description}
           </p>
 
           {/* Brass underline on hover */}
           <motion.div
-            className="h-px bg-brass mt-6 origin-left"
+            className={`h-px bg-brass origin-left ${service.bgImage ? 'mt-4' : 'mt-6'}`}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 0 }}
             whileHover={{ scaleX: 1 }}
