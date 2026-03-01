@@ -6,7 +6,23 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { firstName, lastName, email, projectType, projectBrief } = req.body;
+        const {
+            firstName,
+            lastName,
+            email,
+            phone,
+            consultationMode,
+            projectType,
+            location,
+            area,
+            floorplan,
+            projectStage,
+            budget,
+            requirements,
+            material,
+            timeline,
+            projectBrief
+        } = req.body;
 
         if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY || !process.env.GOOGLE_SPREADSHEET_ID) {
             console.error('Missing Google Sheets credentials');
@@ -28,11 +44,24 @@ export default async function handler(req, res) {
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: SPREADSHEET_ID,
-            range: 'Sheet1!A:F',
+            range: 'Sheet1!A:L',
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [
-                    [date, firstName, lastName, email, projectType, projectBrief]
+                    [
+                        date,                            // A: Time-Stap
+                        firstName || '',                 // B: First Name
+                        email || '',                     // C: Email
+                        phone || '',                     // D: Phone Number
+                        projectType || '',               // E: Project Type
+                        location || '',                  // F: Location City
+                        area || '',                      // G: Location (Area)
+                        floorplan || '',                 // H: Floorplan
+                        projectStage || '',              // I: Current stage
+                        budget || '',                    // J: Budget
+                        requirements || '',              // K: Requirements & Preferences
+                        material || ''                   // L: Material preference
+                    ]
                 ],
             },
         });
