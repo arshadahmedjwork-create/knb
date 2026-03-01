@@ -50,29 +50,38 @@ app.post('/api/submit', async (req, res) => {
         } = req.body;
         const date = new Date().toISOString();
 
+        // Map data to match the exact columns in the Google Sheet:
+        // A: Time-Stap
+        // B: First Name
+        // C: Email
+        // D: Phone Number
+        // E: Project Type
+        // F: Location City
+        // G: Location (Area)
+        // H: Floorplan
+        // I: Current stage
+        // J: Budget
+        // K: Requirements & Preferences
+        // L: Material preference
         await sheets.spreadsheets.values.append({
             spreadsheetId: SPREADSHEET_ID,
-            range: 'Sheet1!A:P', // Adjust Sheet name if necessary
+            range: 'Sheet1!A:L', // Adjusted to match columns A through L
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [
                     [
-                        date,
-                        firstName,
-                        lastName,
-                        email,
-                        phone || '',
-                        projectType || '',
-                        location || '',
-                        area || '',
-                        floorplan || '',
-                        projectStage || '',
-                        budget || '',
-                        requirements || '',
-                        material || '',
-                        timeline || '',
-                        consultationMode || '',
-                        projectBrief || ''
+                        date,                            // A: Time-Stap
+                        firstName || '',                 // B: First Name
+                        email || '',                     // C: Email
+                        phone || '',                     // D: Phone Number
+                        projectType || '',               // E: Project Type
+                        location || '',                  // F: Location City
+                        area || '',                      // G: Location (Area)
+                        floorplan || '',                 // H: Floorplan
+                        projectStage || '',              // I: Current stage
+                        budget || '',                    // J: Budget
+                        requirements || '',              // K: Requirements & Preferences
+                        material || ''                   // L: Material preference
                     ]
                 ],
             },
