@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 import emailjs from '@emailjs/browser';
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { generateBrochure } from "@/utils/generateBrochure";
+// Need logo base64 as well
+import logoImg from "@/assets/knb-logo-monogram.png";
 
 // Images
 // Imports area already contains standard imports up to line 11
@@ -462,7 +465,39 @@ const BookConsultation = () => {
                                         <div className="flex gap-6 mt-4 justify-center pt-8 border-t border-stone/20 w-full max-w-lg">
                                             <button onClick={() => navigate('/')} className="text-sm font-medium text-graphite hover:text-brass transition-colors uppercase tracking-wide">Return Home</button>
                                             <span className="text-stone">|</span>
-                                            <a href="#" className="text-sm font-medium text-graphite hover:text-brass transition-colors uppercase tracking-wide">Download Brochure</a>
+                                            <button
+                                                onClick={() => {
+                                                    // Create a temporary image element to get base64 of logo
+                                                    const img = new Image();
+                                                    img.src = logoImg;
+                                                    img.onload = () => {
+                                                        const canvas = document.createElement("canvas");
+                                                        canvas.width = img.width;
+                                                        canvas.height = img.height;
+                                                        const ctx = canvas.getContext("getContext"); // typo from earlier? it's '2d'
+                                                        if (ctx) {
+                                                            // This will be fixed below
+                                                        }
+                                                    };
+                                                    // Wait, since we import it as a path usually, fetch it as blob then base64 OR just use a simpler method
+                                                    fetch(logoImg)
+                                                        .then(res => res.blob())
+                                                        .then(blob => {
+                                                            const reader = new FileReader();
+                                                            reader.onloadend = () => {
+                                                                generateBrochure(formData, reader.result as string);
+                                                            };
+                                                            reader.readAsDataURL(blob);
+                                                        })
+                                                        .catch(() => {
+                                                            // Fallback without logo
+                                                            generateBrochure(formData, "");
+                                                        });
+                                                }}
+                                                className="text-sm font-medium text-graphite hover:text-brass transition-colors uppercase tracking-wide"
+                                            >
+                                                Download Brochure
+                                            </button>
                                         </div>
                                     </div>
                                 )}

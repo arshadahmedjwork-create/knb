@@ -3,6 +3,8 @@ import { motion, useInView, useScroll, useTransform, AnimatePresence } from "fra
 import SectionLabel from "./SectionLabel";
 import emailjs from '@emailjs/browser';
 import { toast } from "sonner";
+import { generateBrochure } from "@/utils/generateBrochure";
+import logoImg from "@/assets/knb-logo-monogram.png";
 
 // Images
 import officeImg from "../assets/Office.png";
@@ -445,10 +447,28 @@ const Consultation = () => {
                         <div className="px-4 py-2 border border-stone/20 bg-stone/5 text-brass text-sm rounded">Starting from ₹1.9L</div>
                       </div>
 
-                      <div className="flex gap-4 mt-4">
-                        <a href="#projects" onClick={() => setStep(1)} className="text-sm underline hover:text-brass transition-colors text-stone">View Projects</a>
-                        <span className="text-stone">|</span>
-                        <a href="/brochure" onClick={() => setStep(1)} className="text-sm underline hover:text-brass transition-colors text-stone">Download Brochure</a>
+                      <div className="flex gap-4 mt-4 justify-center items-center">
+                        <a href="#projects" onClick={() => setStep(1)} className="text-sm border-b border-transparent hover:border-brass hover:text-brass transition-all duration-300 text-stone pb-1">View Projects</a>
+                        <span className="text-stone/30">|</span>
+                        <button
+                          onClick={() => {
+                            fetch(logoImg)
+                              .then(res => res.blob())
+                              .then(blob => {
+                                const reader = new FileReader();
+                                reader.onloadend = () => {
+                                  generateBrochure(formData, reader.result as string);
+                                };
+                                reader.readAsDataURL(blob);
+                              })
+                              .catch(() => {
+                                generateBrochure(formData, "");
+                              });
+                          }}
+                          className="text-sm border-b border-transparent hover:border-brass hover:text-brass transition-all duration-300 text-stone pb-1"
+                        >
+                          Download Brochure
+                        </button>
                       </div>
                     </div>
                   )}
