@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState } from "react";
 import heroImage from "@/assets/hero-header-3.jpg";
+import Logo from "./Logo";
 
 interface HeroProps {
   onScrollProgress?: (progress: number) => void;
@@ -88,11 +89,20 @@ const Hero = ({ onScrollProgress }: HeroProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row flex-wrap gap-4"
           >
             <a
+              href="/brochure.pdf"
+              download
+              className="group relative inline-flex items-center justify-center gap-3 bg-onyx/80 backdrop-blur-sm border border-brass px-8 py-4 text-brass uppercase tracking-wide-editorial text-sm hover:bg-brass hover:text-onyx transition-all duration-500 rounded-full overflow-hidden shadow-[0_0_20px_rgba(200,165,80,0.15)] hover:shadow-[0_0_30px_rgba(200,165,80,0.4)]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-brass/0 via-brass/20 to-brass/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              <Logo className="h-5 w-auto" variant="monogram" />
+              <span className="relative font-medium tracking-wider">Download Brochure</span>
+            </a>
+            <a
               href="#gallery"
-              className="group inline-flex items-center justify-center gap-3 border border-brass px-8 py-4 text-offwhite uppercase tracking-wide-editorial text-sm hover:bg-brass hover:text-onyx transition-all duration-500 rounded-full"
+              className="group inline-flex items-center justify-center gap-3 border border-stone/30 px-8 py-4 text-offwhite uppercase tracking-wide-editorial text-sm hover:border-offwhite/50 hover:text-offwhite transition-all duration-500 rounded-full"
             >
               <span className="relative">
                 View Projects
